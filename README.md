@@ -1,17 +1,17 @@
 
 
-##为刚刚开始学习深度学习的同学安利一个简单好玩的框架
+## 为刚刚开始学习深度学习的同学安利一个简单好玩的框架
 使用的是百度的深度学习框架PaddlePaddle  
 
 ---
 
-##Why? 
+## Why? 
 * 原因非常简单，国产框架，文档全是中文，可以支持一波
 
-##What?
+## What?
 * 飞桨PaddlePaddle-源于产业实践的开源深度学习平台
 
-##How?  
+## How?  
 * [官方文档](https://www.paddlepaddle.org.cn/)  
 * [github文档](https://github.com/PaddlePaddle/PaddleHub)  
 
