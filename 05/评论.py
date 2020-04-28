@@ -31,7 +31,7 @@
 # 
 # 
 
-# In[2]:
+# In[ ]:
 
 
 # pip install jieba
@@ -44,7 +44,7 @@ pip install wordcloud
 
 
 
-# In[3]:
+# In[ ]:
 
 
 # Linux系统默认字体文件路径
@@ -53,7 +53,7 @@ pip install wordcloud
 get_ipython().system('fc-list :lang=zh | grep ".ttf"')
 
 
-# In[4]:
+# In[ ]:
 
 
 wget https://mydueros.cdn.bcebos.com/font/simhei.ttf
@@ -64,7 +64,7 @@ mkdir .fonts
 cp simhei.ttf .fonts/
 
 
-# In[5]:
+# In[ ]:
 
 
 #安装模型
@@ -78,7 +78,7 @@ hub install porn_detection_lstm==1.1.0
 pip install wordcloud
 
 
-# In[6]:
+# In[ ]:
 
 
 from __future__ import print_function
@@ -96,7 +96,7 @@ from wordcloud import WordCloud  #绘制词云模块
 import paddlehub as hub
 
 
-# In[7]:
+# In[ ]:
 
 
 #请求爱奇艺评论接口，返回response信息
@@ -137,7 +137,7 @@ def saveMovieInfoToFile(lastId,arr):
     comments  = responseJson['data']['comments']
     for val in comments:
         if 'content' in val.keys():
-            print(val['content'])
+            # print(val['content'])
             arr.append(val['content'])
         lastId = str(val['id'])
     return lastId
@@ -145,7 +145,7 @@ def saveMovieInfoToFile(lastId,arr):
 
 
 
-# In[8]:
+# In[ ]:
 
 
 #去除文本中特殊字符
@@ -176,7 +176,7 @@ def clear_special_char(content):
     return str
 
 
-# In[9]:
+# In[ ]:
 
 
 def fenci(text):
@@ -190,7 +190,7 @@ def fenci(text):
     return  seg
 
 
-# In[10]:
+# In[ ]:
 
 
 def stopwordslist(file_path):
@@ -204,7 +204,7 @@ def stopwordslist(file_path):
     return stopwords 
 
 
-# In[11]:
+# In[ ]:
 
 
 def movestopwords(sentence,stopwords,counts):
@@ -222,7 +222,7 @@ def movestopwords(sentence,stopwords,counts):
     
 
 
-# In[13]:
+# In[ ]:
 
 
 def drawcounts(counts,num):
@@ -235,7 +235,7 @@ def drawcounts(counts,num):
     y_aixs = []
 
     c_order = sorted(counts.items(), key = lambda x:x[1], reverse=True)
-    print("c_",c_order)
+    # print("c_",c_order)
     for c in c_order[:num]:
         x_aixs.append(c[0])
         y_aixs.append(c[1])
@@ -250,11 +250,11 @@ def drawcounts(counts,num):
     
 
 
-# In[14]:
+# In[ ]:
 
 
 def drawcloud(word_f):
-    print(word_f)
+    # print(word_f)
     '''
     根据词频绘制词云图
     参数 word_f:统计出的词频结果I
@@ -281,7 +281,7 @@ def drawcloud(word_f):
 
 
 
-# In[15]:
+# In[ ]:
 
 
 def text_detection(text, file_path):
@@ -303,19 +303,19 @@ def text_detection(text, file_path):
 
     input_dict = {"text": test_text}
     results = porn_detection_lstm.detection(data=input_dict,use_gpu=True,batch_size=1)
-
-    for index, item in enumerate(results):
-        if item['pron_detection_key'] == 'porn':
+    # print(results)
+    for index,item in enumerate(results):
+        if item['porn_detection_key'] == 'porn':
             print(item['text'],':',item['porn_probs'])
 
 
-# In[16]:
+# In[42]:
 
 
 #评论是多分页的，得多次请求爱奇艺的评论接口才能获取多页评论,有些评论含有表情、特殊字符之类的
 #num 是页数，一页10条评论，假如爬取1000条评论，设置num=100
 if __name__ == "__main__":
-    num  = 30
+    num  = 40
     lastId = '0'
     arr = []
     with open('aqy.txt', 'a', encoding='utf-8') as f:
@@ -341,16 +341,19 @@ if __name__ == "__main__":
 
     drawcounts(counts,10)
     drawcloud(counts) 
-    # f.close()
+    f.close()
 
-    # file_path = 'aqy.txt'
+    file_path = 'aqy.txt'
 
-    # test_text = []
-    # text_detection(test_text,file_path)
+    test_text = []
+    text_detection(test_text,file_path)
     
 
 
-# In[17]:
+
+
+
+# In[43]:
 
 
 display(Image.open('pic.png')) #显示生成的词云图像
